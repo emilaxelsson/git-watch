@@ -31,3 +31,12 @@ This displays a Git revision tree that gets updated whenever there are changes i
   * Runs `git log --graph --all --oneline --decorate --color` and crops the output to fit in the current terminal window.
 
 When combining the two commands, we also get responsitivity with respect to changes to the terminal size. `watch_git_tree_changes` reacts to changes to the terminal dimensions, and `git_graph_crop` adapts its output to always fit.
+
+## References
+
+For a better alternative (on Linux), see [trackit](https://github.com/emilaxelsson/trackit):
+
+  * Near-instant updates
+  * Efficient change detection (using inotify)
+  * Scrolling
+  * Etc.
