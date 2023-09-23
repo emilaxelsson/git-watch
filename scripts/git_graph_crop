@@ -1,0 +1,14 @@
+#!/bin/bash
+
+NUM_LINES=$((`tput lines`-1))
+NUM_COLS=`tput cols`
+
+# Regex for cropping each line without screwing up ANSI color sequences
+# See https://unix.stackexchange.com/a/46982
+REGEX='s/^((?:(?>(?:\e\[.*?m)*).){'$NUM_COLS'}).*/$1\e[m/'
+
+git log --graph --all --oneline --decorate --color \
+  | head -n $NUM_LINES \
+  | perl -pe $REGEX
+
+echo -n '----------------------'

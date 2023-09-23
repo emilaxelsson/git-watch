@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+
+function git_tree_and_terminal_state() {
+    # State conists of git reference files with full time stamps plus terminal size
+    local state=`ls -l --full-time --recursive .git/*HEAD .git/refs``tput lines``tput cols`
+    local hash=`echo $state | md5sum`
+    echo $hash
+}
+
+while true; do
+    clear
+    "$@"
+
+    old_state=$(git_tree_and_terminal_state)
+    while true; do
+        if [[ "$(git_tree_and_terminal_state)" != "$old_state" ]]
+        then
+            break
+        fi
+        sleep 1
+    done
+done
